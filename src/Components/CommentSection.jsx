@@ -1,46 +1,91 @@
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+ // src/Components/CommentSection.jsx
+import { useEffect, useState } from 'react';
+import { db } from '../firebase';
 import {
-  collection,
-  query,
-  where,
-  orderBy,
-  onSnapshot
-} from "firebase/firestore";
-import Comment from "./Comment";
-import ReplyForm from "./ReplyForm";
+  collection, query, where, orderBy, onSnapshot, addDoc, deleteDoc, updateDoc, doc, Timestamp
+} from 'firebase/firestore';
+import Comment from './Comment';
 
 export default function CommentSection({ articleId, currentUser }) {
   const [comments, setComments] = useState([]);
+  const [newText, setNewText] = useState('');
+  const [replyTo, setReplyTo] = useState(null);
 
+  // load all comments
   useEffect(() => {
     const q = query(
-      collection(db, "articles", articleId, "comments"),
-      where("parentId", "==", null),
-      orderBy("createdAt", "asc")
+      collection(db, 'articles', articleId, 'comments'),
+      orderBy('createdAt', 'asc')
     );
-    const unsub = onSnapshot(q, (snap) => {
-      setComments(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+    return onSnapshot(q, snap => {
+      setComments(snap.docs.map(d => ({ id: d.id, ...d.data() })));
     });
-    return () => unsub();
   }, [articleId]);
 
+  const post = async (text, parentId = null) => {
+    await addDoc(collection(db, 'articles', articleId, 'comments'), {
+      text,
+      parentId,
+      authorId: currentUser?.uid || null,
+      authorName: currentUser?.username || currentUser?.email || 'Guest',
+      createdAt: Timestamp.now()
+    });
+  };
+
   return (
-    <div>
-      <ReplyForm articleId={articleId} parentId={null} currentUser={currentUser} />
-      {comments.map(comment => (
-        <Comment
-          key={comment.id}
-          articleId={articleId}
-          comment={comment}
-          currentUser={currentUser}
+    <section>
+      <h3 className="text-xl font-semibold mb-2">Comments</h3>
+
+      {/* New comment / reply form */}
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+          post(newText, replyTo);
+          setNewText('');
+          setReplyTo(null);
+        }}
+        className="mb-4"
+      >
+        <input
+          type="text"
+          placeholder={replyTo ? 'Your reply…' : 'Your comment…'}
+          value={newText}
+          onChange={e => setNewText(e.target.value)}
+          required
+          className="w-full border p-2 rounded mb-2"
         />
-      ))}
-    </div>
-  );
-}   currentUser={currentUser}
-        />
-      ))}
-    </div>
+        <div className="flex space-x-2">
+          <button
+            type="submit"
+            className="bg-blue-500 text-white px-4 py-1 rounded"
+          >
+            {replyTo ? 'Reply' : 'Comment'}
+          </button>
+          {replyTo && (
+            <button
+              type="button"
+              onClick={() => setReplyTo(null)}
+              className="px-4 py-1 text-gray-600 hover:underline"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
+      </form>
+
+      {/* Render top-level comments */}
+      {comments
+        .filter(c => c.parentId === null)
+        .map(c => (
+          <Comment
+            key={c.id}
+            comment={c}
+            allComments={comments}
+            articleId={articleId}
+            currentUser={currentUser}
+            setReplyTo={setReplyTo}
+          />
+        ))}
+    </section>
   );
 }
