@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local 
 Api
+Replylist
+ReplyForm
 
 # Editor directories and files
 .vscode/*

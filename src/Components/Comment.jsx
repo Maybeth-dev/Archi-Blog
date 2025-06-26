@@ -1,4 +1,3 @@
- // src/Components/Comment.jsx
 import { useState } from 'react';
 import { db } from '../firebase';
 import { deleteDoc, updateDoc, doc } from 'firebase/firestore';
@@ -32,7 +31,7 @@ export default function Comment({
     }
   };
 
-  // replies to this comment:
+   
   const replies = allComments.filter(c => c.parentId === comment.id);
 
   return (
@@ -75,8 +74,7 @@ export default function Comment({
           </button>
         </div>
       </div>
-
-      {/* recursive render replies */}
+ 
       {replies.map(r => (
         <Comment
           key={r.id}

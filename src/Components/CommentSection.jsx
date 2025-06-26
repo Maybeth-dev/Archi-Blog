@@ -1,4 +1,3 @@
- // src/Components/CommentSection.jsx
 import { useEffect, useState } from 'react';
 import { db } from '../firebase';
 import {
@@ -10,8 +9,7 @@ export default function CommentSection({ articleId, currentUser }) {
   const [comments, setComments] = useState([]);
   const [newText, setNewText] = useState('');
   const [replyTo, setReplyTo] = useState(null);
-
-  // load all comments
+ 
   useEffect(() => {
     const q = query(
       collection(db, 'articles', articleId, 'comments'),
@@ -35,8 +33,7 @@ export default function CommentSection({ articleId, currentUser }) {
   return (
     <section>
       <h3 className="text-xl font-semibold mb-2">Comments</h3>
-
-      {/* New comment / reply form */}
+ 
       <form
         onSubmit={e => {
           e.preventDefault();

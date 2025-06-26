@@ -101,8 +101,7 @@
 //     </div>
 //   );
 // }
- 
- // src/Pages/ArticlePage.jsx
+  
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { db, auth } from '../firebase';
@@ -118,7 +117,7 @@ export default function ArticlePage() {
   const [article, setArticle] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
-  // 1️⃣ Track logged‐in user & load their profile
+  //  Track logged‐in user & load their profile
   useEffect(() => {
     return auth.onAuthStateChanged(async user => {
       if (!user) return setCurrentUser(null);
@@ -131,7 +130,7 @@ export default function ArticlePage() {
     });
   }, []);
 
-  // 2️⃣ Load article
+  // Load article
   useEffect(() => {
     if (!id) return;
     getDoc(doc(db, 'articles', id)).then(snap => {
