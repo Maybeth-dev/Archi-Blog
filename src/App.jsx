@@ -70,6 +70,8 @@ import PrivateRoute from './Components/PrivateRoute';
       <Route path="/articles/new" element={<ArticleForm />} />
       <Route path="/articles/edit/:id" element={<ArticleForm />} />
 
+  
+
       {/* Catch-all */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

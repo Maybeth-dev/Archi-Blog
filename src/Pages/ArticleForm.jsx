@@ -111,11 +111,10 @@
 
 
 
-
-import React, { useState } from 'react';
+ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createArticle } from '../Api/articles';
-import { auth } from '../firebase';
+import { db, auth } from '../firebase';
+import { collection, addDoc, doc, getDoc, serverTimestamp } from 'firebase/firestore';
 
 export default function ArticleForm() {
   const [title, setTitle] = useState('');
@@ -125,32 +124,32 @@ export default function ArticleForm() {
   const [busy, setBusy] = useState(false);
   const navigate = useNavigate();
 
-   const handleSubmit = async e => {
-  e.preventDefault();
-  if (!title || !content) return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!title || !content) return;
 
-  setBusy(true);
-  const user = auth.currentUser;
+    setBusy(true);
+    const user = auth.currentUser;
 
-  let username = 'Anonymous';
-  if (!anonymous && user) {
-    // Fetch user's Firestore profile
-    const snap = await getDoc(doc(db, 'users', user.uid));
-    const data = snap.exists() ? snap.data() : {};
-    username = data.username || user.email;
-  }
+    let username = 'Anonymous';
+    if (!anonymous && user) {
+     
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      const data = snap.exists() ? snap.data() : {};
+      username = data.username || user.email;
+    }
 
-  await createArticle({
-    title,
-    content,
-    authorName: username,
-    authorId: user.uid,
-    imageUrl: imageUrl.trim() || null
-  });
+    await addDoc(collection(db, 'articles'), {
+      title,
+      content,
+      authorName: username,
+      authorId: user?.uid || null,
+      imageUrl: imageUrl.trim() || null,
+      createdAt: serverTimestamp()
+    });
 
-  navigate('/');
-};
-
+    navigate('/');
+  };
 
   return (
     <div className="pt-16 max-w-2xl mx-auto mt-10 bg-white shadow-lg rounded-lg p-6">

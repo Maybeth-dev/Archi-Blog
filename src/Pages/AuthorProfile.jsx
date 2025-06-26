@@ -55,7 +55,7 @@
 // export default AuthorProfile;
 
 
- // src/Pages/AuthorProfile.jsx
+ 
 import React, { useEffect, useState } from 'react';
 import { auth, db } from '../firebase';
 import {

@@ -192,8 +192,7 @@ export default function Homepage() {
 
   useEffect(() => {
     (async () => {
-      try {
-        // 👇 Only fetch published articles
+      try { 
         const q = query(
           collection(db, 'articles'),
           where('published', '==', true),
