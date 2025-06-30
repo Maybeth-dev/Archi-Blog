@@ -26,7 +26,7 @@ export default function ArticlePage() {
     });
   }, []);
 
-  // Load article
+ 
   useEffect(() => {
     if (!id) return;
     getDoc(doc(db, 'articles', id)).then(snap => {

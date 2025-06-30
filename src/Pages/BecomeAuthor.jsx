@@ -15,7 +15,7 @@ const BecomeAuthor = () => {
   const handleLogout = async () => {
     try {
       await signOut(auth);
-      navigate('/login'); // or wherever you want to redirect after logout
+      navigate('/login'); 
     } catch (error) {
       console.error('Error signing out:', error);
     }
@@ -23,7 +23,7 @@ const BecomeAuthor = () => {
 
   const navItems = [
     { name: 'Dashboard', to: '/dashboard' },
-    { name: 'Sign Out', onClick: handleLogout } // Now it's a function
+    { name: 'Sign Out', onClick: handleLogout } 
   ];
 
   const handleSubmit = async (e) => {
@@ -35,7 +35,7 @@ const BecomeAuthor = () => {
     }
 
     try { 
-      // Fixed: Added the document reference
+      
       await setDoc(doc(db, 'users', user.uid), { 
         isAuthor: true, 
         role: 'author', 
@@ -101,102 +101,4 @@ const BecomeAuthor = () => {
 };
 
 export default BecomeAuthor;
-
-// export default function ArticlePage() {
-//   const { id } = useParams();
-//   const [article, setArticle] = useState(null);
-//   const [comments, setComments] = useState([]);
-//   const [newComment, setNewComment] = useState('');
-
-//   useEffect(() => {
-//     if (!id) return;
-
-//     // Fetch the article
-//     getDoc(doc(db, 'articles', id)).then((docSnap) => {
-//       if (docSnap.exists()) {
-//         setArticle({ id: docSnap.id, ...docSnap.data() });
-//       }
-//     });
-
-//     // Listen for comments
-//     const q = query(
-//       collection(db, 'articles', id, 'comments'),
-//       orderBy('createdAt', 'asc')
-//     );
-//     const unsubscribe = onSnapshot(q, (snap) => {
-//       setComments(snap.docs.map((d) => ({ id: d.id, ...d.data() })));
-//     });
-
-//     return () => unsubscribe();
-//   }, [id]);
-
-//   const postComment = async (e) => {
-//     e.preventDefault();
-//     await addDoc(collection(db, 'articles', id, 'comments'), {
-//       authorName: 'Guest',
-//       text: newComment,
-//       createdAt: Timestamp.now()
-//     });
-//     setNewComment('');
-//   };
-
-//   if (!article) {
-//     return <p className="text-center mt-10">Loading…</p>;
-//   }
-
-//   return (
-//     <div className="max-w-3xl mx-auto px-4 py-8">
-//       <h1 className="text-3xl font-bold mb-2">{article.title}</h1>
-//       <p className="text-sm text-gray-500 mb-4">
-//         by {/* now using authorUser */}
-//         {article.authorUser} —{' '}
-//         {article.createdAt?.seconds &&
-//           new Date(article.createdAt.seconds * 1000).toLocaleString()}
-//       </p>
-
-//       {/* If you also have an imageUrl field, render that square above content */}
-//       {article.imageUrl && (
-//         <div className="w-full aspect-square mb-6 overflow-hidden rounded-lg shadow">
-//           <img
-//             src={article.imageUrl}
-//             alt={article.title || 'Article image'}
-//             className="object-cover w-full h-full"
-//           />
-//         </div>
-//       )}
-
-//       <div className="prose max-w-none mb-8">{article.content}</div>
-
-//       <section>
-//         <h3 className="text-xl font-semibold mb-2">Comments</h3>
-//         <form onSubmit={postComment} className="mb-4">
-//           <input
-//             placeholder="Your comment"
-//             value={newComment}
-//             onChange={(e) => setNewComment(e.target.value)}
-//             required
-//             className="w-full border border-gray-300 p-2 rounded mb-2"
-//           />
-//           <button className="bg-blue-500 text-white px-4 py-1 rounded">
-//             Post
-
-
-
-
-
-
-
-
-
-//           </button>
-//         </form>
-
-//         {comments.map((c) => (
-//           <div key={c.id} className="mb-2 border-b pb-1">
-//             <strong>{c.authorName}:</strong> {c.text}
-//           </div>
-//         ))}
-//       </section>
-//     </div>
-//   );
-// }
+ 

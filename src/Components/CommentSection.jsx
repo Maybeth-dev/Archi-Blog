@@ -69,8 +69,7 @@ export default function CommentSection({ articleId, currentUser }) {
           )}
         </div>
       </form>
-
-      {/* Render top-level comments */}
+ 
       {comments
         .filter(c => c.parentId === null)
         .map(c => (

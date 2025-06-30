@@ -35,9 +35,8 @@ export default function Dashboard() {
       <Disclosure as="nav" className="bg-gray-800 fixed top-0 w-full z-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Desktop menu */}
             <div className="hidden md:flex justify-between w-full items-center">
-              {/* Left nav */}
+      
               <div className="flex space-x-4">
                 {leftNav.map((item) => (
                   <Link
@@ -55,7 +54,7 @@ export default function Dashboard() {
                 ))}
               </div>
 
-              {/* Right nav */}
+           
               <div className="flex items-center space-x-4">
                 {rightNav.map((item) =>
                   item.onClick === 'logout' ? (
@@ -84,7 +83,7 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Mobile menu button */}
+            
             <div className="flex md:hidden">
               <DisclosureButton className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white">
                 <span className="sr-only">Open main menu</span>
@@ -93,8 +92,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
-        {/* Mobile menu panel */}
+ 
         <DisclosurePanel className="md:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3 bg-gray-800">
             {[...leftNav, ...rightNav].map((item) =>

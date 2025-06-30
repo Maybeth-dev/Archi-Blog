@@ -15,8 +15,7 @@ export default function AdminControl() {
   const [current, setCurrent] = useState(null);
   const [form, setForm] = useState({ title: '', content: '', imageUrl: '' });
   const [snackbar, setSnackbar] = useState('');
-
-  // Auth state
+ 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (u) => {
       if (u) {
@@ -31,7 +30,7 @@ export default function AdminControl() {
     return unsubscribe;
   }, []);
 
-  // Fetch all articles
+ 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'articles'), snap => {
       const all = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -40,7 +39,7 @@ export default function AdminControl() {
     return unsub;
   }, []);
 
-  // Fetch all users
+ 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, 'users'), snap => {
       const all = snap.docs.map(doc => ({ id: doc.id, ...doc.data() }));
@@ -105,7 +104,7 @@ export default function AdminControl() {
   };
 
   const toggleRole = async (u) => {
-    if (u.role === 'admin') return; // don't allow changing admin role
+    if (u.role === 'admin') return;  
     const newRole = u.role === 'author' ? 'user' : 'author';
     await updateDoc(doc(db, 'users', u.id), { role: newRole });
     notify(`User role changed to ${newRole}`);
@@ -129,8 +128,7 @@ export default function AdminControl() {
         <div className="max-w-4xl mx-auto">
 
           <h1 className="text-3xl font-bold mb-6">Admin Panel</h1>
-
-          {/* Article Form */}
+ 
           <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow space-y-4">
             <h2 className="text-xl font-semibold mb-2">
               {current ? 'Edit Article' : 'Create New Article'}
@@ -169,8 +167,7 @@ export default function AdminControl() {
               )}
             </div>
           </form>
-
-          {/* All Articles */}
+ 
           <div className="bg-white p-6 rounded shadow mt-6">
             <h2 className="text-xl font-semibold mb-4">All Articles</h2>
             <ul className="space-y-4">
@@ -213,8 +210,7 @@ export default function AdminControl() {
               ))}
             </ul>
           </div>
-
-          {/* Manage Users */}
+ 
           <div className="bg-white p-6 rounded shadow mt-6">
             <h2 className="text-xl font-semibold mb-4">Manage Users</h2>
             <ul className="space-y-2">
@@ -238,8 +234,7 @@ export default function AdminControl() {
             </ul>
           </div>
         </div>
-
-        {/* Snackbar */}
+ 
         {snackbar && (
           <div className="fixed bottom-5 right-5 bg-gray-800 text-white px-4 py-2 rounded shadow">
             {snackbar}

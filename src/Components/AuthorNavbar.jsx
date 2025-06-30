@@ -32,13 +32,13 @@ export default function Navbar() {
       <Disclosure as="nav" className="bg-gray-800 fixed top-0 w-full z-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Desktop Menu */}
+       
             <div className="hidden md:flex justify-between w-full items-center">
               <Link to="/" className="text-2xl font-bold text-white hover:text-gray-300">
                 📰 Archiblog
               </Link>
 
-              {/* Right Nav */}
+            
               <div className="flex items-center space-x-4">
                 {rightNav.map((item) => (
                     <Link
@@ -54,8 +54,7 @@ export default function Navbar() {
                     {item.name}
                   </Link>
                 ))}
-
-                {/* Profile Menu */}
+ 
                 <Menu as="div" className="relative">
                   <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open user menu</span>
@@ -80,9 +79,7 @@ export default function Navbar() {
                   </MenuItems>
                 </Menu>
               </div>
-            </div>
-
-            {/* Mobile Menu Button */}
+            </div> 
             <div className="flex md:hidden">
               <DisclosureButton className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span className="sr-only">Open main menu</span>

@@ -34,13 +34,12 @@ export default function Navbar() {
       <Disclosure as="nav" className="bg-gray-800 fixed top-0 w-full z-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            {/* Desktop Menu */}
+       
             <div className="hidden md:flex justify-between w-full items-center">
               <Link to="/" className="text-2xl font-bold text-white hover:text-gray-300">
                 📰 Archiblog
               </Link>
-
-              {/* Right Nav */}
+ 
               <div className="flex items-center space-x-4">
                 {rightNav.map((item) => (
                   <Link
@@ -56,8 +55,7 @@ export default function Navbar() {
                     {item.name}
                   </Link>
                 ))}
-
-                {/* Profile Menu */}
+ 
                 <Menu as="div" className="relative">
                   <MenuButton className="flex rounded-full bg-gray-800 text-sm focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span className="sr-only">Open user menu</span>
@@ -94,10 +92,10 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Panel */}
+     
         <DisclosurePanel className="md:hidden">
           <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
-            {/* Mobile text logo */}
+            
             <div className="text-white px-3 py-2 font-bold text-lg">📰 Archiblog</div>
             {rightNav.map((item) => (
               <DisclosureButton
@@ -139,10 +137,9 @@ export default function Navbar() {
         </DisclosurePanel>
       </Disclosure>
 
-      {/* Page content padding */}
+ 
       <main className="pt-16">
-        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          {/* Outlet or children would go here if you used nested routes */}
+        <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8"> 
         </div>
       </main>
     </div>

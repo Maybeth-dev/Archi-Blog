@@ -21,19 +21,19 @@ export default function SignUp() {
       return setMessage("Password must be at least 6 characters.");
     }
 
-    // enforce lowercase usernames
+    
     const cleanName = name.trim().toLowerCase();
 
     try {
-      // check username uniqueness
+      
       const q = query(collection(db, "users"), where("username", "==", cleanName));
       const snap = await getDocs(q);
       if (!snap.empty) return setMessage("Username already taken.");
 
-      // create auth user
+       
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
 
-      // save to Firestore
+       
       await setDoc(doc(db, "users", user.uid), {
         username: cleanName,
         email,

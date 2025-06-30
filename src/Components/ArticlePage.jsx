@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { db, auth } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import { onAuthStateChanged } from 'firebase/auth';
-import CommentSection from '../components/CommentSection';
+import CommentSection from '../Components/CommentSection';
 
 export default function ArticlePage() {
   const { id } = useParams();

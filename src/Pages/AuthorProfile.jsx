@@ -20,11 +20,11 @@ export default function AuthorProfile() {
       const user = auth.currentUser;
       if (!user) return;
 
-      // Profile info
+  
       const snap = await getDoc(doc(db, 'users', user.uid));
       setInfo(snap.data() || {});
 
-      // Articles by this author
+      
       const q = query(
         collection(db, 'articles'),
         where('authorId', '==', user.uid),
@@ -111,15 +111,13 @@ export default function AuthorProfile() {
           <ul className="space-y-6">
             {articles.map(article => (
               <li key={article.id} className="border p-4 rounded relative">
-
-                {/* Title & link */}
+ 
                 <Link to={`/articlepage/${article.id}`}>
                   <h3 className="text-xl font-medium text-blue-600 hover:underline">
                     {article.title}
                   </h3>
                 </Link>
 
-                {/* Meta */}
                 <p className="text-sm text-gray-600 mb-2">
                   {article.createdAt?.seconds
                     ? new Date(article.createdAt.seconds * 1000).toLocaleDateString()
@@ -129,7 +127,7 @@ export default function AuthorProfile() {
                   </span>
                 </p>
 
-                {/* Edit/Delete controls */}
+             
                 {editingId !== article.id && (
                   <div className="absolute top-4 right-4 flex space-x-2">
                     <button
@@ -146,8 +144,7 @@ export default function AuthorProfile() {
                     </button>
                   </div>
                 )}
-
-                {/* Inline Edit Form */}
+ 
                 {editingId === article.id && (
                   <form onSubmit={saveEdit} className="mt-4 space-y-3 bg-gray-50 p-4 rounded">
                     <input

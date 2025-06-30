@@ -22,7 +22,7 @@ export default function ArticleForm() {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
 
-      // Redirect back to homepage:
+       
       navigate('/')
     } catch (err) {
       console.error('Failed to post article', err)
