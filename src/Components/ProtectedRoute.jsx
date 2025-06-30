@@ -1,18 +1,4 @@
-//  import React from 'react';
-// import { Navigate } from 'react-router-dom';
-// import { auth } from '../firebase';
-
-// export default function ProtectedRoute({ childre}) {
-//   // If no user is logged in, redirect to "/login".
-//   // Otherwise, render the wrapped component (children).
-//   if (!auth.currentUser) {
-//     return <Navigate to="/login" replace />;
-//   }
-//   return children;
-// }
-
- 
-import { useEffect, useState } from 'react';
+ import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { auth, db } from '../firebase';
 import { onAuthStateChanged } from 'firebase/auth';

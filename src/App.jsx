@@ -1,4 +1,3 @@
- // src/App.jsx
 import './App.css';
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
@@ -72,7 +71,7 @@ import PrivateRoute from './Components/PrivateRoute';
 
   
 
-      {/* Catch-all */}
+      {/*wrong path redirect*/}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
